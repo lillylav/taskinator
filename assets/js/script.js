@@ -1,7 +1,10 @@
+// select main element in html object with id page-content
+var pageContentEl = document.querySelector("#page-content");
+
 // select form in html object with id task-form
 var formEl = document.querySelector("#task-form");
 
-// select ul with id tasks-to-do
+// select ul in html object with id tasks-to-do
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
 // used to create unique ID for each task
@@ -115,3 +118,24 @@ var createTaskActions = function(taskId) {
 
 // listen for "submit" event and execute taskFormHandler variable if event occurs
 formEl.addEventListener("submit", taskFormHandler);
+
+// function to identify where a "click" event is occuring and isolate the html element by id
+var taskButtonHandler = function(event) {
+    console.log(event.target);
+
+    if (event.target.matches(".delete-btn")) {
+        // get element's task id
+        var taskId = event.target.getAttribute("data-task-id");
+        deleteTask(taskId);
+    };
+};
+
+// delete task function
+var deleteTask = function(taskId) {
+    // further narrows selection of click to element with "task-item" class AND(no space) a "data-task-id" data id attribute with a value equal to the one provided by the argument that was passed
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+    taskSelected.remove();
+};
+
+// listens for clicks in main element of html object and calls taskButtonHandler function
+pageContentEl.addEventListener("click", taskButtonHandler);
