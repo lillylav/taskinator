@@ -7,6 +7,12 @@ var formEl = document.querySelector("#task-form");
 // select ul in html object with id tasks-to-do
 var tasksToDoEl = document.querySelector("#tasks-to-do");
 
+// select "tasks-in-progress" column
+var tasksInProgressEl = document.querySelector("#tasks-in-progress");
+
+// select "completed" column
+var tasksCompletedEl = document.querySelector("#tasks-completed");
+
 // used to create unique ID for each task
 var taskIdCounter = 0;
 
@@ -194,5 +200,28 @@ var deleteTask = function(taskId) {
     taskSelected.remove();
 };
 
+var taskStatusChangeHandler = function(event) {
+    // get the task item's data-task-id
+    var taskId = event.target.getAttribute("data-task-id");
+
+    // get the currently selected option's value and convert to lowercase
+    var statusValue = event.target.value.toLowerCase();
+
+    // fine the parent task item element based on the id
+    var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
+
+    // move columns
+    if (statusValue === "to do") {
+        tasksToDoEl.appendChild(taskSelected);
+    } else if (statusValue === "in progress") {
+        tasksInProgressEl.appendChild(taskSelected);
+    } else if (statusValue === "completed") {
+        tasksCompletedEl.appendChild(taskSelected);
+    }
+};
+
 // listens for clicks in main element of html object and calls taskButtonHandler function
 pageContentEl.addEventListener("click", taskButtonHandler);
+
+// listens for changes in task type
+pageContentEl.addEventListener("change", taskStatusChangeHandler);
