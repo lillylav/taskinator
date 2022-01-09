@@ -82,6 +82,7 @@ var createTaskEl = function(taskDataObj) {
 
     // append createTaskActions (the buttons) via the unique id assigner to each task item
     var taskActionEl = createTaskActions(taskIdCounter);
+    
     // append taskActionsEl(buttons assigned to unique ids) to listItemEl(its corresponding li)
     listItemEl.appendChild(taskActionEl);
 
@@ -246,7 +247,7 @@ var taskStatusChangeHandler = function(event) {
     // get the currently selected option's value and convert to lowercase
     var statusValue = event.target.value.toLowerCase();
 
-    // fine the parent task item element based on the id
+    // find the parent task item element based on the id
     var taskSelected = document.querySelector(".task-item[data-task-id='" + taskId + "']");
 
     // move columns
