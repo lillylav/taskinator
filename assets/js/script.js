@@ -92,6 +92,9 @@ var createTaskEl = function(taskDataObj) {
     taskDataObj.id = taskIdCounter;
     tasks.push(taskDataObj);
 
+    // update local storage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
     // increase task counter for next unique id
     taskIdCounter++;
 };
@@ -204,6 +207,9 @@ var completeEditTask = function(taskName, taskType, taskId) {
 
     alert("Task updated!");
 
+    // update local storage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
     // reset from and button content
     formEl.removeAttribute("data-task-id");
     document.querySelector("#save-task").textContent = "Add Task";
@@ -228,6 +234,9 @@ var deleteTask = function(taskId) {
 
     // reassign tasks array to be the same as updatedTaskArr
     tasks = updatedTaskArr;
+
+    // update local storage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 var taskStatusChangeHandler = function(event) {
@@ -255,6 +264,14 @@ var taskStatusChangeHandler = function(event) {
             tasks[i].status = statusValue;
         }
     }
+
+    // update local storage
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+};
+
+// save to local storage
+var saveTasks = function() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 };
 
 // listens for clicks in main element of html object and calls taskButtonHandler function
